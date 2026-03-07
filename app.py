@@ -16,6 +16,10 @@ EMBED_URL = os.getenv("INSTA_EMBED_URL")
 API_VERSION = "v24.0"
 INSTA_REDIRECT_URI = "https://facebookflowbasttl.streamlit.app/redirect"
 
+# Initialize session state
+if 'proceed_with_metrics' not in st.session_state:
+    st.session_state.proceed_with_metrics = False
+
 # --- HELPER FUNCTIONS ------------------------------------------------------------
 def display_api_endpoint_info(
     step_number: str,
@@ -295,9 +299,39 @@ display_json_with_download(
 )
 
 # ==================================================================================
-# API CALLS SECTION
+# PAUSE HERE - WAIT FOR USER TO CLICK BUTTON
 # ==================================================================================
+st.markdown("---")
+st.markdown("## ⏸️ Ready to Proceed?")
+
+st.info("""
+**👇 Click the button below to start fetching all metrics**
+
+This will:
+- Exchange authorization code for access tokens
+- Fetch your Instagram profile data
+- Calculate 7-day, 30-day, and 90-day engagement metrics
+- Retrieve all media insights and totals
+
+⚠️ **Note:** This process will make multiple API calls to Instagram and may take 30-60 seconds to complete.
+""")
+
+# Big button to proceed
+if st.button("🚀 Go Ahead - Calculate All Metrics", type="primary", use_container_width=True):
+    st.session_state.proceed_with_metrics = True
+    st.rerun()
+
+# Stop here if button hasn't been clicked
+if not st.session_state.proceed_with_metrics:
+    st.caption("💡 Take your time to review the authorization code above before proceeding.")
+    st.stop()
+
+# ==================================================================================
+# API CALLS SECTION (ONLY RUNS AFTER BUTTON CLICK)
+# ==================================================================================
+st.markdown("---")
 st.markdown("## 🔄 API Request Flow")
+st.success("✅ Processing started! Fetching all metrics...")
 
 with st.status("🔗 Processing Instagram Authentication...", expanded=True) as status:
 
