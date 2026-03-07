@@ -14,7 +14,7 @@ INSTA_APP_ID = os.getenv("INSTA_APP_ID")
 INSTA_APP_SECRET = os.getenv("INSTA_APP_SECRET")
 EMBED_URL = os.getenv("INSTA_EMBED_URL")
 API_VERSION = "v24.0"
-INSTA_REDIRECT_URI = "https://facebookflowbasttl.streamlit.app/redirect"
+INSTA_REDIRECT_URI = "https://facebookflowcoshotraw.streamlit.app/redirect"
 
 # Initialize session state
 if 'proceed_with_metrics' not in st.session_state:
