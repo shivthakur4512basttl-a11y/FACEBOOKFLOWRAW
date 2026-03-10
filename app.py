@@ -11,7 +11,7 @@ load_dotenv()
 # Config
 APP_ID = os.getenv("INSTAGRAM_APP_ID")  # e.g., "990602627938098"
 APP_SECRET = os.getenv("INSTAGRAM_APP_SECRET")
-REDIRECT_URI = "https://your-streamlit-app.streamlit.app/redirect"  # Update to your URL
+REDIRECT_URI = "https://facebookflowcoshotraw.streamlit.app/redirect"  # Update to your URL
 API_VERSION = "v24.0"
 REQUIRED_PERMISSIONS = ["instagram_business_basic", "instagram_business_manage_insights"]  # ONLY these two!
 
@@ -105,7 +105,7 @@ def display_permission_check(check_result):
         st.stop()
 
 # Authorization URL
-auth_url = f"https://api.instagram.com/oauth/authorize?client_id={APP_ID}&redirect_uri={REDIRECT_URI}&scope=instagram_business_basic,instagram_business_manage_insights&response_type=code"
+auth_url = os.getenv("INSTA_EMBED_URL")
 
 # Main app
 st.title("🚀 Instagram Token & Insights (Exact Permissions Check)")
